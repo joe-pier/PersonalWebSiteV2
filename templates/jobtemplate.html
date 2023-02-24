@@ -1,0 +1,19 @@
+<div class = "border-bottom row" style = "margin-top: 24px; padding-bottom: 15px">
+    
+    <div class="col-9"> 
+        <h4> <b>{{job['title']}} </b></h4>
+        <div style = "color: rgb(120 120 120); "><b>Location: </b>{{job['location']}}  </div>
+        <div style = "color: rgb(120 120 120); "><b>from </b>{{job['start']}} <b>to </b> {% if "end" in job%} {{job['end']}}{%else%} today {% endif %}  </div>
+        {% if "jobdescription" in job%}
+        <div style = "color: rgb(120 120 120);"><b>description </b>{{job['jobdescription']}}  </div>
+        {% endif %}
+        {% if "company" in job%}
+        <div style = "color: rgb(120 120 120); margin-bottom: 15px; "><b>description </b>{{job['company']}}  </div>
+        {% endif %}
+    </div>
+
+    <div class="col-3" style="display: flex;align-items: center;">
+        <a href = "mailto: dipasquale.piergiorgio@gmail.com?subject=Hi Piergiorgio, I want to know more about the role {{job['title']}} in the period from {{job['start']}} to {{job['end']}}!" type="button" class="btn btn-dark">Details</a>
+    </div>
+    
+</div>
