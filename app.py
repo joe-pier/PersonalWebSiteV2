@@ -1,9 +1,8 @@
-from flask import Flask, render_template, jsonify,request,send_file
+from flask import Flask, render_template, jsonify
 from database import load_jobs_from_db
 app = Flask(__name__) # instance of class Flask
 
 UPLOAD_FOLDER = './uploads'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route("/") # any website has a route. a part of the url after the url
 # this is going to match the empty route
