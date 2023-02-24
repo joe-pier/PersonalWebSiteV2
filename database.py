@@ -2,7 +2,13 @@
 from sqlalchemy import create_engine, text
 import os
 
-db_connection = os.environ["DATABASE_CREDENTIALS"]
+
+try:
+    with open('local.txt') as f:
+        lines = [line for line in f]
+        db_connection = lines[0]
+except:
+    db_connection = os.environ["DATABASE_CREDENTIALS"]
 
 
 # how to set a secret variable:
