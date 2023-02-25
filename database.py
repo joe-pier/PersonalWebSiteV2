@@ -35,11 +35,7 @@ def encode_binary_response(response):
         """ encode the icon response from the database. remember that Json type do not natively support binary data"""
         jobs_dict = []
         for row in response:
-            print(row)
             row_dict = dict(row)
-            # row_dict = dict(row)
-            #print(row_dict)
-            print(type(row_dict))
             if row_dict["icon"] == None:
                 jobs_dict.append(row_dict)
             else:
