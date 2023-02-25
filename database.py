@@ -57,7 +57,6 @@ def load_job_from_db(id):
         result = conn.execute(text("select * from jobs WHERE id = :val"), val = id)
         rows = result.all()
         jobs_dict = encode_binary_response(rows)
-
         if len(jobs_dict)==0:
             return None
         else:

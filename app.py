@@ -16,11 +16,18 @@ def list_jobs():
     jobs = load_jobs_from_db()
     return jsonify(jobs)
 
+@app.route("/api/job/<id>")
+def show_job_api(id):
+    job = load_job_from_db(id)
+    return jsonify(job)
+
 @app.route("/job/<id>")
 def show_job(id):
     job = load_job_from_db(id)
-    return job
-
+    if not job:
+        return render_template("404.html", job = job) 
+    else:
+        return render_template("jobpage.html", job = job)
 
 if __name__ == "__main__":
     app.run(host = "0.0.0.0", debug = True)

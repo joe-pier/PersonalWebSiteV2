@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Pier.it</title>
+        <link rel="icon" href="/static/logo.png"/ style="border-radius: 20%;">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+        
+        <style>
+            @font-face { font-family: Cocogoose; src: url('static/Cocogoose.ttf'); }
+        </style>
+
+    </head>
+    <div class = "border-bottom row" style = "margin-top: 48px; padding-bottom: 5px;">
+        <div class="d-none d-md-block col-md-2">
+            <a target = "_blank" type="button" style="text-align:center; padding: 10px;" href="{{job['link']}}"><div style="background-color:white; text-align:center; padding: 10px;">
+                <img src="data:image/png;charset=utf-8; base64, {{job['icon']}}" width="100" height="100" class = "img-fluid">
+            </div></a>
+        </div>
+        <div class="col-7"> 
+            <h4> <b>{{job['title']}} </b></h4>
+            
+            <div style = "color: rgb(120 120 120); "><b>Location: </b>{{job['location']}}  </div>
+            <div style = "color: rgb(120 120 120); "><b>from </b>{{job['start_date']}} <b>to </b> {% if "end_date" in job%} {{job['end_date']}}{%else%} today {% endif %}  </div>
+            {% if "jobdescription" in job%}
+            <div style = "color: rgb(120 120 120);"><b>Company </b>{{job['jobdescription']}}  </div>
+            {% endif %}
+            {% if "company" in job%}
+            <div style = "color: rgb(120 120 120); margin-bottom: 15px; "><b>description </b>{{job['company']}}  </div>
+            {% endif %}
+        </div>
+    
+        <div class="col-3" style="display: flex;align-items: center; margin-bottom: 24px;">
+            <a href = "mailto: dipasquale.piergiorgio@gmail.com?subject=Hi Piergiorgio, I want to know more about the role {{job['title']}} in the period from {{job['start']}} to {{job['end']}}!" type="button" class="btn btn-dark">Details</a>
+        </div>
+        
+    </div>
+</html>
