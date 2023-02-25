@@ -1,8 +1,6 @@
 # connect to database
 from sqlalchemy import create_engine, text
 import os
-from PIL import Image
-from io import BytesIO
 import base64
 
 
@@ -33,27 +31,34 @@ engine = create_engine(db_connection, connect_args=
             }
     })
 
+def encode_binary_response(response):
+        """ encode the icon response from the database. remember that Json type do not natively support binary data"""
+        jobs_dict = []
+        for row in response:
+            row = dict(row)
+            if row["icon"] == None:
+                jobs_dict.append(row)
+            else:
+                base64_encoded_image = base64.b64encode(row["icon"]).decode("utf-8")
+                row.update({"icon": base64_encoded_image})
+                jobs_dict.append(row)
+        return jobs_dict
+
 def load_jobs_from_db():
     with engine.connect() as conn:
         result = conn.execute(text("select * from jobs"))
         jobs = result.mappings().all()
-        new_jobs = []
-        for row in jobs:
-            row = dict(row)
-            if row["icon"] == None:
-                new_jobs.append(row)
-            else:
-                base64_encoded_image = base64.b64encode(row["icon"]).decode("utf-8")
-                row.update({"icon": base64_encoded_image})
-                new_jobs.append(row)
-    return new_jobs
+        jobs_dict = encode_binary_response(jobs)
+    return jobs_dict
 
 
 def load_job_from_db(id):
     with engine.connect() as conn:
         result = conn.execute(text("select * from jobs WHERE id = :val"), val = id)
         rows = result.all()
-        if len(rows)==0:
+        jobs_dict = encode_binary_response(rows)
+
+        if len(jobs_dict)==0:
             return None
         else:
-            return dict(rows[0])
+            return dict(jobs_dict[0])

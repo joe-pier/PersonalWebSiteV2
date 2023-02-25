@@ -19,7 +19,7 @@ def list_jobs():
 @app.route("/job/<id>")
 def show_job(id):
     job = load_job_from_db(id)
-    return jsonify(job)
+    return job
 
 
 if __name__ == "__main__":
