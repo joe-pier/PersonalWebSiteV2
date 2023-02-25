@@ -35,13 +35,13 @@ def encode_binary_response(response):
         """ encode the icon response from the database. remember that Json type do not natively support binary data"""
         jobs_dict = []
         for row in response:
-            row = dict(row)
-            if row["icon"] == None:
-                jobs_dict.append(row)
+            row_dict = dict(row)
+            if row_dict["icon"] == None:
+                jobs_dict.append(row_dict)
             else:
-                base64_encoded_image = base64.b64encode(row["icon"]).decode("utf-8")
-                row.update({"icon": base64_encoded_image})
-                jobs_dict.append(row)
+                base64_encoded_image = base64.b64encode(row_dict["icon"]).decode("utf-8")
+                row_dict.update({"icon": base64_encoded_image})
+                jobs_dict.append(row_dict)
         return jobs_dict
 
 def load_jobs_from_db():
@@ -55,8 +55,8 @@ def load_jobs_from_db():
 def load_job_from_db(id):
     with engine.connect() as conn:
         result = conn.execute(text(f"select * from jobs WHERE id = {id}"))
-        rows = result.all()
-        jobs_dict = encode_binary_response(rows)
+        job = result.all()
+        jobs_dict = encode_binary_response(job)
         if len(jobs_dict)==0:
             return None
         else:
