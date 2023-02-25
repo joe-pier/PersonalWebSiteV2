@@ -1,8 +1,19 @@
 from flask import Flask, render_template, jsonify, request
 from database import load_jobs_from_db, load_job_from_db, add_data
+from flask_hcaptcha import hCaptcha
+import os
+
 
 app = Flask(__name__)  # instance of class Flask
+hcaptcha = hCaptcha(app)
 
+app.config['HCAPTCHA_ENABLED'] = True
+app.config['HCAPTCHA_SITE_KEY'] = os.environ["HCAPTCHA_SITE_KEY"]
+
+app.config['HCAPTCHA_SECRET_KEY '] = os.environ["HCAPTCHA_SECRET_KEY"]
+
+
+ 
 UPLOAD_FOLDER = './uploads'
 
 
@@ -40,12 +51,16 @@ def form():
 
 @app.route("/form/data", methods = ["post"])
 def data():
-    data = request.form
-    # store in db
-    # display an uknowledgement
-    # and send an email
-    add_data(data)
-    return render_template("form_submitted.html", data = data)
+    print(hcaptcha.verify())
+    if hcaptcha.verify():
+        data = request.form
+        # store in db
+        # display an uknowledgement
+        # and send an email
+        add_data(data)
+        return render_template("form_submitted.html", data = data)
+    else:
+        return render_template("404.html")
 
 
 if __name__ == "__main__":
