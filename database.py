@@ -36,6 +36,8 @@ def encode_binary_response(response):
         jobs_dict = []
         for row in response:
             row_dict = dict(row)
+            print(row_dict)
+            print(type(row_dict))
             if row_dict["icon"] == None:
                 jobs_dict.append(row_dict)
             else:
