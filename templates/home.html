@@ -50,15 +50,14 @@
                     <img class = "img-fluid" id = "banner" src = "/static/me.png" height="350" class="center" style = "height:320px; border-radius: 8px;">
                 </div>
             </div>
-                <h2 class = "text-center mt-5" style="font-family: Cocogoose;">
+                <h2 class = "text-center mt-5" style="font-family: Cocogoose;" >
                     <b>Job positions</b>
                 </h2>
-                <p>
+                <p >
                     {%for job in jobs%}
                         {%include 'jobtemplate.html'%}
                     {% endfor %}
                 </p>
-
             <div style = "font-size: 8px; font-family: Verdana; text-align: center; margin-top: 48px; text-justify: distribute;" >
                 
                 <a target = "_blank" href="https://www.linkedin.com/in/piergiorgio-di-pasquale-a0059319a/"  type = "button" class="btn btn-outline-primary custom_width" style = "margin-bottom: 18px; margin-right: 18px; border-radius: 12px;"> 
