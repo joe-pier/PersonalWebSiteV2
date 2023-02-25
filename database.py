@@ -61,3 +61,14 @@ def load_job_from_db(id):
             return None
         else:
             return dict(jobs_dict[0])
+        
+
+def add_data(data):
+    with engine.connect() as conn:
+        name = data["Name"]
+        last_name =data["Last Name"]
+        email = data["Email"]
+        linkedin = data["Linkedin"]
+        notes =  data["notes"]
+        query = text(f"INSERT INTO `pierpersonalwebpage`.`user_data` (`name`, `last_name`, `email`,`linkedin`, `notes`) VALUES ('{name}', '{last_name}', '{email}', '{linkedin}', '{notes}')")
+        conn.execute(query)
