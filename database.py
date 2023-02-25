@@ -1,9 +1,13 @@
 # connect to database
 from sqlalchemy import create_engine, text
 import os
+from PIL import Image
+from io import BytesIO
+import base64
 
 
 try:
+    # local enviroment
     with open('local.txt') as f:
         lines = [line for line in f]
         db_connection = lines[0]
@@ -33,4 +37,23 @@ def load_jobs_from_db():
     with engine.connect() as conn:
         result = conn.execute(text("select * from jobs"))
         jobs = result.mappings().all()
-        return jobs
+        new_jobs = []
+        for row in jobs:
+            row = dict(row)
+            if row["icon"] == None:
+                new_jobs.append(row)
+            else:
+                base64_encoded_image = base64.b64encode(row["icon"]).decode("utf-8")
+                row.update({"icon": base64_encoded_image})
+                new_jobs.append(row)
+        return new_jobs
+
+
+def load_job_from_db(id):
+    with engine.connect() as conn:
+        result = conn.execute(text("select * from jobs WHERE id = :val"), val = id)
+        rows = result.all()
+        if len(rows)==0:
+            return None
+        else:
+            return dict(rows[0])
