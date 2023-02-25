@@ -46,7 +46,7 @@ def load_jobs_from_db():
                 base64_encoded_image = base64.b64encode(row["icon"]).decode("utf-8")
                 row.update({"icon": base64_encoded_image})
                 new_jobs.append(row)
-        return new_jobs
+    return new_jobs
 
 
 def load_job_from_db(id):
