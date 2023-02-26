@@ -79,6 +79,7 @@ def data():
 
 @app.route("/login", methods=["get"])
 def login():
+    print(session)
     return render_template("login.html", session=list(session.keys()))
 
 
