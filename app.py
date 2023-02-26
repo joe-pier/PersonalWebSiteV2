@@ -78,7 +78,7 @@ def login():
 
 @app.route("/login/data", methods = ["post"])
 def login_data():
-        cv = True#xcaptcha.verify()
+        cv = xcaptcha.verify()
         if cv:
             login_data_query = get_login_info()
             login_data = request.form
