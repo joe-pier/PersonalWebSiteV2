@@ -1,5 +1,5 @@
 from flask import Flask, render_template, jsonify, request, session
-from database import load_jobs_from_db, load_job_from_db, add_data, get_login_info, get_recorded_info, get_record_info, remove_data_query
+from database import load_jobs_from_db, load_job_from_db, add_data, get_login_info, get_recorded_info, get_record_info, remove_data_query, load_projects_from_db,load_project_from_db
 import os
 from flask_xcaptcha import XCaptcha
 
@@ -34,19 +34,9 @@ xcaptcha = XCaptcha(app=app)
 @app.route("/")
 def home():
     jobs = load_jobs_from_db()
-    return render_template('home.html', jobs=jobs, name="Pier")
+    projects = load_projects_from_db()
+    return render_template('home.html', jobs=jobs,projects = projects, name="Pier")
 
-
-@app.route("/api/jobs")
-def list_jobs():
-    jobs = load_jobs_from_db()
-    return jsonify(jobs)
-
-
-@app.route("/api/job/<id>")
-def show_job_api(id):
-    job = load_job_from_db(id)
-    return jsonify(job)
 
 
 @app.route("/job/<id>")
@@ -57,6 +47,13 @@ def show_job(id):
     else:
         return render_template("jobpage.html", job=job)
 
+@app.route("/project/<id>")
+def show_projects(id):
+    project = load_project_from_db(id)
+    if not project:
+        return render_template("404.html", project=project)
+    else:
+        return render_template("projectpage.html", project=project)
 
 @app.route("/form")
 def form():
@@ -142,9 +139,7 @@ def logout():
             session.pop("captcha")
         except:
             pass
-        
-        
-        return render_template("logout.html")
+    return render_template("logout.html")
 
 
 if __name__ == "__main__":

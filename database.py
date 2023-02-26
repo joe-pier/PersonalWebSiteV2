@@ -100,4 +100,22 @@ def get_record_info(id):
 def remove_data_query(id):
     with engine.connect() as conn:
         return conn.execute(text(f"DELETE FROM `pierpersonalwebpage`.`user_data` WHERE (`id` = '{id}'); "))
+
+
+def load_projects_from_db():
+    with engine.connect() as conn:
+        result = conn.execute(text("select * from projects"))
+        projects = result.mappings().all()
+        projects_dict = encode_binary_response(projects)
+    return projects_dict
+
+def load_project_from_db(id):
+    with engine.connect() as conn:
+        result = conn.execute(text(f"select * from projects WHERE id = {id}"))
+        project = result.mappings().all()
+        project_dict = encode_binary_response(project)
+        if len(project_dict)==0:
+            return None
+        else:
+            return dict(project_dict[0])
         
