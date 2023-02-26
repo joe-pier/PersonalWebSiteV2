@@ -4,11 +4,10 @@ import os
 from flask_xcaptcha import XCaptcha
 
 
-
 app = Flask(__name__)  # instance of class Flask
 
 try:
-    # local enviroment
+    # local enviroment, not synched in github ;)
     with open('local.txt') as f:
         lines = [line for line in f]
     print(lines)
@@ -16,15 +15,13 @@ try:
     app.config['XCAPTCHA_SECRET_KEY'] = lines[1]
     sk = lines[2]
 except:
-    app.config['XCAPTCHA_SITE_KEY'] = os.environ["XCAPTCHA_SITE_KEY"] 
+    app.config['XCAPTCHA_SITE_KEY'] = os.environ["XCAPTCHA_SITE_KEY"]
     app.config['XCAPTCHA_SECRET_KEY'] = os.environ["XCAPTCHA_SECRET_KEY"]
     sk = os.environ["XCAPTCHA_SITE_KEY"]
 
 app.config['XCAPTCHA_VERIFY_URL'] = "https://hcaptcha.com/siteverify"
 app.config['XCAPTCHA_API_URL'] = "https://hcaptcha.com/1/api.js"
 app.config['XCAPTCHA_DIV_CLASS'] = "h-captcha"
-
-
 
 
 xcaptcha = XCaptcha(app=app)
@@ -60,9 +57,10 @@ def show_job(id):
 
 @app.route("/form")
 def form():
-    return render_template("form.html", sk = sk)
+    return render_template("form.html", sk=sk)
 
-@app.route("/form/data", methods = ["post"])
+
+@app.route("/form/data", methods=["post"])
 def data():
     if xcaptcha.verify():
         data = request.form
@@ -70,7 +68,7 @@ def data():
         # display an uknowledgement
         # and send an email
         add_data(data)
-        return render_template("form_submitted.html", data = data)
+        return render_template("form_submitted.html", data=data)
     else:
         return render_template("toomanyattempts.html")
 
