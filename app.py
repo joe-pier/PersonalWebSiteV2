@@ -32,7 +32,6 @@ xcaptcha = XCaptcha(app=app)
 # any website has a route. a part of the url after the url this is going to match the empty route
 @app.route("/")
 def home():
-    print(session)
     jobs = load_jobs_from_db()
     return render_template('home.html', jobs=jobs, name="Pier")
 
@@ -84,7 +83,7 @@ def login():
 
 @app.route("/login/data", methods=["post"])
 def login_data():
-    cv = True #xcaptcha.verify()
+    cv = xcaptcha.verify()
     if cv:
         login_data_query = get_login_info()
         login_data = request.form
@@ -112,8 +111,14 @@ def remove_data():
 
 @app.route("/logout")
 def logout():
-    session.pop("username")
-    session.pop("password")
-    return render_template("logout.html")
+    if "username" not in list(session.keys()):
+        return render_template("logouterror.html")
+    
+    else:
+        session.pop("username")
+        session.pop("password")
+        return render_template("logout.html")
+        
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)
