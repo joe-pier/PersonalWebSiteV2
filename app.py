@@ -26,8 +26,8 @@ app.config['XCAPTCHA_DIV_CLASS'] = "h-captcha"
 xcaptcha = XCaptcha(app=app)
 
 
-@app.route("/")  # any website has a route. a part of the url after the url this is going to match the empty route
-
+# any website has a route. a part of the url after the url this is going to match the empty route
+@app.route("/")
 def home():
     jobs = load_jobs_from_db()
     return render_template('home.html', jobs=jobs, name="Pier")
@@ -101,7 +101,7 @@ def remove_data():
         return render_template("404_remove.html")
     else:
         remove_data_query(id_user["id"])
-        return render_template("elimination_confirmation.html", user_data = user_data)
+        return render_template("elimination_confirmation.html", user_data=user_data)
 
 
 if __name__ == "__main__":
