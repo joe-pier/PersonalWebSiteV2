@@ -13,7 +13,7 @@ try:
     app.config['XCAPTCHA_SITE_KEY'] = lines[2]
     app.config['XCAPTCHA_SECRET_KEY'] = lines[1]
     sk = lines[2]
-    app.secret_key =lines[3]
+    app.secret_key = lines[3]
 except:
     app.config['XCAPTCHA_SITE_KEY'] = os.environ["XCAPTCHA_SITE_KEY"]
     app.config['XCAPTCHA_SECRET_KEY'] = os.environ["XCAPTCHA_SECRET_KEY"]
@@ -29,6 +29,8 @@ app.config['XCAPTCHA_DIV_CLASS'] = "h-captcha"
 xcaptcha = XCaptcha(app=app)
 
 # any website has a route. a part of the url after the url this is going to match the empty route
+
+
 @app.route("/")
 def home():
     jobs = load_jobs_from_db()
@@ -77,7 +79,7 @@ def data():
 
 @app.route("/login", methods=["get"])
 def login():
-    return render_template("login.html", session = session)
+    return render_template("login.html", session=session)
 
 
 @app.route("/login/data", methods=["post"])
@@ -109,6 +111,7 @@ def login_data():
         else:
             return render_template("login_error.html")
 
+
 @app.route("/login/data/remove", methods=["post"])
 def remove_data():
     id_user = dict(request.form)
@@ -119,16 +122,17 @@ def remove_data():
         remove_data_query(id_user["id"])
         return render_template("elimination_confirmation.html", user_data=user_data)
 
+
 @app.route("/logout")
 def logout():
     if "username" not in list(session.keys()):
         return render_template("logouterror.html")
-    
+
     else:
         session.pop("username")
         session.pop("password")
         return render_template("logout.html")
-        
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)
