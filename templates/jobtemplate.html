@@ -14,10 +14,10 @@
         <div style="color: rgb(120 120 120); "><b>from </b>{{job['start_date']}} <b>to </b> {% if "end_date" in job%}
             {{job['end_date']}}{%else%} today {% endif %} </div>
         {% if "jobdescription" in job%}
-        <div style="color: rgb(120 120 120);"><b>Company </b>{{job['jobdescription']}} </div>
+        <div style="color: rgb(120 120 120);"><b>Company </b>{{job['company']}} </div>
         {% endif %}
         {% if "company" in job%}
-        <div style="color: rgb(120 120 120); margin-bottom: 15px; "><b>description </b>{{job['company']}} </div>
+        <div style="color: rgb(120 120 120); margin-bottom: 15px; "><b>description </b>{{job['jobdescription']}} </div>
         {% endif %}
     </div>
 

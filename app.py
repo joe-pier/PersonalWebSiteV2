@@ -7,14 +7,26 @@ from flask_xcaptcha import XCaptcha
 
 app = Flask(__name__)  # instance of class Flask
 
+try:
+    # local enviroment
+    with open('local.txt') as f:
+        lines = [line for line in f]
+    print(lines)
+    app.config['XCAPTCHA_SITE_KEY'] = lines[2]
+    app.config['XCAPTCHA_SECRET_KEY'] = lines[1]
+    sk = lines[2]
+except:
+    app.config['XCAPTCHA_SITE_KEY'] = os.environ["XCAPTCHA_SITE_KEY"] 
+    app.config['XCAPTCHA_SECRET_KEY'] = os.environ["XCAPTCHA_SECRET_KEY"]
+    sk = os.environ["XCAPTCHA_SITE_KEY"]
 
-app.config['XCAPTCHA_SITE_KEY'] = os.environ["XCAPTCHA_SITE_KEY"] 
-app.config['XCAPTCHA_SECRET_KEY'] = os.environ["XCAPTCHA_SECRET_KEY"] 
 app.config['XCAPTCHA_VERIFY_URL'] = "https://hcaptcha.com/siteverify"
 app.config['XCAPTCHA_API_URL'] = "https://hcaptcha.com/1/api.js"
 app.config['XCAPTCHA_DIV_CLASS'] = "h-captcha"
 
-sk = os.environ["XCAPTCHA_SITE_KEY"]
+
+
+
 xcaptcha = XCaptcha(app=app)
 
 
