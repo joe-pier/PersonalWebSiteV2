@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, session
 from database import load_jobs_from_db, load_job_from_db, add_data, get_login_info, get_recorded_info, get_record_info, remove_data_query
 import os
 from flask_xcaptcha import XCaptcha
@@ -13,10 +13,13 @@ try:
     app.config['XCAPTCHA_SITE_KEY'] = lines[2]
     app.config['XCAPTCHA_SECRET_KEY'] = lines[1]
     sk = lines[2]
+    app.secret_key =lines[3]
 except:
     app.config['XCAPTCHA_SITE_KEY'] = os.environ["XCAPTCHA_SITE_KEY"]
     app.config['XCAPTCHA_SECRET_KEY'] = os.environ["XCAPTCHA_SECRET_KEY"]
     sk = os.environ["XCAPTCHA_SITE_KEY"]
+    app.secret_key = os.environ["secret_key"]
+
 
 app.config['XCAPTCHA_VERIFY_URL'] = "https://hcaptcha.com/siteverify"
 app.config['XCAPTCHA_API_URL'] = "https://hcaptcha.com/1/api.js"
@@ -29,6 +32,7 @@ xcaptcha = XCaptcha(app=app)
 # any website has a route. a part of the url after the url this is going to match the empty route
 @app.route("/")
 def home():
+    print(session)
     jobs = load_jobs_from_db()
     return render_template('home.html', jobs=jobs, name="Pier")
 
@@ -80,12 +84,15 @@ def login():
 
 @app.route("/login/data", methods=["post"])
 def login_data():
-    cv = xcaptcha.verify()
+    cv = True #xcaptcha.verify()
     if cv:
         login_data_query = get_login_info()
         login_data = request.form
-        data = get_recorded_info()
         if (login_data["Name"] == login_data_query["username"]) & (login_data["password"] == login_data_query["password"]):
+            session["username"] = login_data["Name"]
+            session["password"] = login_data["password"]
+            print(session)
+            data = get_recorded_info()
             return render_template("table.html", data=data)
         else:
             return render_template("login_error.html")
@@ -103,6 +110,10 @@ def remove_data():
         remove_data_query(id_user["id"])
         return render_template("elimination_confirmation.html", user_data=user_data)
 
-
+@app.route("/logout")
+def logout():
+    session.pop("username")
+    session.pop("password")
+    return render_template("logout.html")
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)

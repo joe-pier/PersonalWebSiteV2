@@ -24,6 +24,7 @@ jobs:
           DATABASE_CREDENTIALS: ${{ secrets.DATABASE_CREDENTIALS }}
           XCAPTCHA_SECRET_KEY: ${{ secrets.XCAPTCHA_SECRET_KEY }}
           XCAPTCHA_SITE_KEY: ${{ secrets.XCAPTCHA_SITE_KEY }}
+          secret_key: ${{ secrets.secret_key }}
       run: |
         pip install -r requirements.txt
     - name: show secret
@@ -31,3 +32,4 @@ jobs:
         echo ${{ secrets.DATABASE_CREDENTIALS }}
         echo ${{ secrets.XCAPTCHA_SECRET_KEY }}
         echo ${{ secrets.XCAPTCHA_SITE_KEY }}
+        echo ${{ secrets.secret_key }}
