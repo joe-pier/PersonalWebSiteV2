@@ -126,7 +126,7 @@ def remove_data():
 
 @app.route("/logout")
 def logout():
-    if "username" not in list(session.keys()):
+    if len(list(session.keys())) == 0:
         return render_template("logouterror.html")
 
     else:
