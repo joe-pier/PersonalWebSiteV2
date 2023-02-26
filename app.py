@@ -2,13 +2,14 @@ from flask import Flask, render_template, jsonify, request
 from database import load_jobs_from_db, load_job_from_db, add_data
 from flask_recaptcha import ReCaptcha
 import os
+from jinja2 import Markup
+
 
 
 app = Flask(__name__)  # instance of class Flask
 
 app.config['RECAPTCHA_SITE_KEY'] = os.environ["RECAPTCHA_SITE_KEY"]
 app.config['RECAPTCHA_SECRET_KEY '] = os.environ["RECAPTCHA_SECRET_KEY"]
-
 
 recaptcha = ReCaptcha(app)
 
