@@ -30,10 +30,10 @@
 
 <body>
     {%include 'nav.html'%}
-    <div class="container">
-        <div style="font-family:Arial, Helvetica, sans-serif; margin-left: 24px; margin-top: 24px;">
-            <h4 style="text-align: left;"> <b>Application form</b></h4>
-            <form action="/form/data" method="post">
+    <div>
+        <div style="font-family:Arial, Helvetica, sans-serif; margin-left: 24px; margin-top: 24px;" >
+            <h4 style="text-align: left; font-family: Arial, Helvetica, sans-serif;"> <b>Hi there! Put your data here: </b></h4>
+            <form action="/form/data" method="post" class="container col-6">
                 <div class="col-form-label mb-2" style="text-align: left;">
                     <div>
                         <label for="Name"> Full Name</label><br>
@@ -61,9 +61,16 @@
                         <input class="btn btn-outline-primary custom_width" type="submit" style="margin-top: 15px;">
                     </div>
                 </div>
+                <div class="d-none d-md-block col-10">
+                    <img class="img-fluid" src="/static/confused.png" height="350" class="center">
+                </div>
         </div>
         </form>
+        
     </div>
+    
+
     </div>
+    
     <div> {%include 'footer.html'%} </div>
 </body>
