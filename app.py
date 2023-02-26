@@ -61,7 +61,8 @@ def form():
 
 @app.route("/form/data", methods=["post"])
 def data():
-    if xcaptcha.verify():
+    cv = xcaptcha.verify()
+    if cv:
         data = request.form
         # store in db
         # display an uknowledgement
@@ -78,7 +79,7 @@ def login():
 
 @app.route("/login/data", methods = ["post", "get"])
 def login_data():
-        cv =  True#xcaptcha.verify()
+        cv =  xcaptcha.verify()
         if cv:
             login_data_query = get_login_info()
             login_data = request.form
