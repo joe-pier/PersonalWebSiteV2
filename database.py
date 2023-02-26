@@ -79,3 +79,11 @@ def get_login_info():
         login_info = conn.execute(text(f"SELECT * FROM pierpersonalwebpage.login"))
         login_info_results = login_info.mappings().all()
         return dict(login_info_results[0])
+    
+
+def get_recorded_info():
+    with engine.connect() as conn:
+        login_info = conn.execute(text(f"SELECT * FROM pierpersonalwebpage.user_data"))
+        login_info_results = login_info.mappings().all()
+        print(login_info_results)
+        return login_info_results

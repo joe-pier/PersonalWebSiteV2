@@ -1,5 +1,5 @@
 from flask import Flask, render_template, jsonify, request
-from database import load_jobs_from_db, load_job_from_db, add_data, get_login_info
+from database import load_jobs_from_db, load_job_from_db, add_data, get_login_info,get_recorded_info
 import os
 from flask_xcaptcha import XCaptcha
 
@@ -78,16 +78,17 @@ def login():
 
 @app.route("/login/data", methods = ["post"])
 def login_data():
-        if xcaptcha.verify():
+        cv = True#xcaptcha.verify()
+        if cv:
             login_data_query = get_login_info()
             login_data = request.form
-
+            data = get_recorded_info()
             if (login_data["Name"] == login_data_query["username"]) & (login_data["password"] == login_data_query["password"]):
-                return jsonify(login_data)
+                return render_template("table.html", data = data)
             else:
                 return render_template("login_error.html")
         else:
-            return render_template("toomanyattempts.html")
+            return render_template("toomanyattemptslogin.html")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)
