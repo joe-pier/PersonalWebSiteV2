@@ -85,13 +85,11 @@ def login():
 def login_data():
     cv = xcaptcha.verify()
     if cv:
-        print(xcaptcha.secret_key)
         login_data_query = get_login_info()
         login_data = request.form
         if (login_data["Name"] == login_data_query["username"]) & (login_data["password"] == login_data_query["password"]):
             session["username"] = login_data["Name"]
             session["password"] = login_data["password"]
-            print(session)
             data = get_recorded_info()
             return render_template("table.html", data=data)
         else:
