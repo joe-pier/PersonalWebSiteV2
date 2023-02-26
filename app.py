@@ -2,7 +2,6 @@ from flask import Flask, render_template, jsonify, request
 from database import load_jobs_from_db, load_job_from_db, add_data
 from flask_recaptcha import ReCaptcha
 import os
-from jinja2 import Markup
 
 
 
