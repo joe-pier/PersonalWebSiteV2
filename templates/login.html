@@ -40,30 +40,17 @@
         <div class="row">
           <div class="col-md-6">
         <div style="font-family:Arial, Helvetica, sans-serif; margin-left: 24px; margin-top: 24px;" >
-            <h4 style="font-family: Cocogoose; margin-bottom: 36px; margin-top: 100px;"> <b>Hi there! Put your data here:
+            <h4 style="font-family: Cocogoose; margin-bottom: 36px; margin-top: 100px;"> <b>Hi there! Put your credentials here:
                 </b></h4>
-            <form action="/form/data" method="post" class="container">
+            <form action="/login/data" method="post" class="container">
                 <div class="col-form-label mb-2" style="text-align: left; ">
                     <div>
-                        <label for="Name" style="font-family: Cocogoose;"> Full Name</label><br>
-                        <input type="text" name="Name" placeholder="Joe" required class="form-control">
+                        <label for="username" style="font-family: Cocogoose;"> username</label><br>
+                        <input type="text" name="Name" placeholder="username" required class="form-control">
                     </div>
                     <div class="mt-3">
-                        <label for="Last Name" style="font-family: Cocogoose;"> Last Name</label><br>
-                        <input type="text" required name="Last Name" placeholder="Rogan" class="form-control">
-                    </div>
-                    <div class="mt-3">
-                        <label for="Email" style="font-family: Cocogoose;"> Email</label><br>
-                        <input type="email" required name="Email" placeholder="jr@gmail.com" class="form-control">
-                    </div>
-                    <div class="mt-3">
-
-                        <label for="Linkedin" style="font-family: Cocogoose;"> Linkedin </label><br>
-                        <input type="url" name="Linkedin" placeholder="https://linkedin.com/in/JoeRogan" class="form-control">
-                    </div>
-                    <div class="mt-3">
-                        <label for="Linkedin" style="font-family: Cocogoose;"> Want to say something? Write here </label><br>
-                        <textarea name="notes" cols="30" rows="10" class="form-control" placeholder="Notes"></textarea>
+                        <label for="password" style="font-family: Cocogoose;"> password</label><br>
+                        <input type="password" required name="password" placeholder="*************" class="form-control">
                     </div>
                 
                 <div style="margin-top: 24px;">

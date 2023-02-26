@@ -1,5 +1,5 @@
 from flask import Flask, render_template, jsonify, request
-from database import load_jobs_from_db, load_job_from_db, add_data
+from database import load_jobs_from_db, load_job_from_db, add_data, get_login_info
 import os
 from flask_xcaptcha import XCaptcha
 
@@ -10,7 +10,6 @@ try:
     # local enviroment, not synched in github ;)
     with open('local.txt') as f:
         lines = [line for line in f]
-    print(lines)
     app.config['XCAPTCHA_SITE_KEY'] = lines[2]
     app.config['XCAPTCHA_SECRET_KEY'] = lines[1]
     sk = lines[2]
@@ -72,6 +71,23 @@ def data():
     else:
         return render_template("toomanyattempts.html")
 
+
+@app.route("/login", methods=["get"])
+def login():
+    return render_template("login.html")
+
+@app.route("/login/data", methods = ["post"])
+def login_data():
+        if xcaptcha.verify():
+            login_data_query = get_login_info()
+            login_data = request.form
+
+            if (login_data["Name"] == login_data_query["username"]) & (login_data["password"] == login_data_query["password"]):
+                return jsonify(login_data)
+            else:
+                return render_template("login_error.html")
+        else:
+            return render_template("toomanyattempts.html")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)

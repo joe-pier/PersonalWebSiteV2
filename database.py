@@ -72,3 +72,10 @@ def add_data(data):
         notes =  data["notes"]
         query = text(f"INSERT INTO `pierpersonalwebpage`.`user_data` (`name`, `last_name`, `email`,`linkedin`, `notes`) VALUES ('{name}', '{last_name}', '{email}', '{linkedin}', '{notes}')")
         conn.execute(query)
+
+
+def get_login_info():
+    with engine.connect() as conn:
+        login_info = conn.execute(text(f"SELECT * FROM pierpersonalwebpage.login"))
+        login_info_results = login_info.mappings().all()
+        return dict(login_info_results[0])
