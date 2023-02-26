@@ -54,7 +54,9 @@
                             </div>
 
                             <div style="margin-top: 24px;">
-                                {{ xcaptcha }}
+                                {{ if "captcha" in session }}
+                                    {{ xcaptcha }}
+                                {% endfor %}
                             </div>
                             <div class="mb-4">
                                 <input class="btn btn-outline-primary custom_width" type="submit"

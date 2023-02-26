@@ -77,7 +77,7 @@ def data():
 
 @app.route("/login", methods=["get"])
 def login():
-    return render_template("login.html")
+    return render_template("login.html", session = session)
 
 
 @app.route("/login/data", methods=["post"])
