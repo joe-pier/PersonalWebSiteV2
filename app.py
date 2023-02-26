@@ -28,7 +28,6 @@ app.config['XCAPTCHA_DIV_CLASS'] = "h-captcha"
 
 xcaptcha = XCaptcha(app=app)
 
-
 # any website has a route. a part of the url after the url this is going to match the empty route
 @app.route("/")
 def home():
@@ -83,20 +82,32 @@ def login():
 
 @app.route("/login/data", methods=["post"])
 def login_data():
-    cv = xcaptcha.verify()
-    if cv:
+    if "captcha" not in list(session.keys()):
+        cv = xcaptcha.verify()
+        if cv:
+            login_data_query = get_login_info()
+            login_data = request.form
+            if (login_data["Name"] == login_data_query["username"]) & (login_data["password"] == login_data_query["password"]):
+                session["username"] = login_data["Name"]
+                session["password"] = login_data["password"]
+                session["captcha"] = True
+                data = get_recorded_info()
+                return render_template("table.html", data=data)
+            else:
+                return render_template("login_error.html")
+        else:
+            return render_template("toomanyattemptslogin.html")
+    else:
         login_data_query = get_login_info()
         login_data = request.form
         if (login_data["Name"] == login_data_query["username"]) & (login_data["password"] == login_data_query["password"]):
             session["username"] = login_data["Name"]
             session["password"] = login_data["password"]
+            session["captcha"] = True
             data = get_recorded_info()
             return render_template("table.html", data=data)
         else:
             return render_template("login_error.html")
-    else:
-        return render_template("toomanyattemptslogin.html")
-
 
 @app.route("/login/data/remove", methods=["post"])
 def remove_data():
