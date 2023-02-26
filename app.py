@@ -79,7 +79,6 @@ def data():
 
 @app.route("/login", methods=["get"])
 def login():
-    print(session)
     return render_template("login.html", session=list(session.keys()))
 
 
@@ -90,6 +89,7 @@ def login_data():
         if cv:
             login_data_query = get_login_info()
             login_data = request.form
+            # to retain the access i have to put here a condition to check the presence of user and password in the sessions cookies
             if (login_data["Name"] == login_data_query["username"]) & (login_data["password"] == login_data_query["password"]):
                 session["username"] = login_data["Name"]
                 session["password"] = login_data["password"]
