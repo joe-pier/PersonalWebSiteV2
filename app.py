@@ -1,5 +1,5 @@
 from flask import Flask, render_template, jsonify, request
-from database import load_jobs_from_db, load_job_from_db, add_data, get_login_info,get_recorded_info
+from database import load_jobs_from_db, load_job_from_db, add_data, get_login_info,get_recorded_info,get_record_info,remove_data_query
 import os
 from flask_xcaptcha import XCaptcha
 
@@ -76,9 +76,9 @@ def data():
 def login():
     return render_template("login.html")
 
-@app.route("/login/data", methods = ["post"])
+@app.route("/login/data", methods = ["post", "get"])
 def login_data():
-        cv =  xcaptcha.verify()
+        cv =  True#xcaptcha.verify()
         if cv:
             login_data_query = get_login_info()
             login_data = request.form
@@ -89,6 +89,23 @@ def login_data():
                 return render_template("login_error.html")
         else:
             return render_template("toomanyattemptslogin.html")
+
+@app.route("/login/data/remove", methods = ["post", "get"])
+def remove_data():
+    id_user = dict(request.form)
+    user_data = get_record_info(id_user["id"])
+    if not user_data: #check existense of data
+        return render_template("404_remove.html")  
+    else:
+        remove_data_query(id_user["id"])
+        return render_template("table.html")
+    
+
+
+
+
+
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)

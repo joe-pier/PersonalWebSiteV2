@@ -53,7 +53,16 @@
     {% endfor %}
   </table>
 </div>
-
+<div style="font-size: 8px; text-align: center; margin-top: 5px;">
+  <form action="/login/data/remove" method="post" class="container">
+    <div>
+      <label for="id" style="font-family:Arial, Helvetica, sans-serif;"> remove contact by ID</label><br>
+      <input type="text" name="id" placeholder="ID" required class="form-control">
+  </div>
+  <div class="mb-4">
+    <input class="btn btn-outline-primary custom_width" type="submit" style="margin-top: 15px;">
+</div></form>
+</div>
 </body>
 {%include 'footer.html'%}
 </html>

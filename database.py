@@ -85,5 +85,19 @@ def get_recorded_info():
     with engine.connect() as conn:
         login_info = conn.execute(text(f"SELECT * FROM pierpersonalwebpage.user_data"))
         login_info_results = login_info.mappings().all()
-        print(login_info_results)
         return login_info_results
+    
+
+def get_record_info(id):
+    with engine.connect() as conn:
+        data_contact = conn.execute(text(f"SELECT * FROM pierpersonalwebpage.user_data WHERE id = {id}"))
+        data_contact_results = data_contact.mappings().all()
+        if not data_contact_results:
+            pass
+        else:
+            return dict(data_contact_results[0])
+
+def remove_data_query(id):
+    with engine.connect() as conn:
+        conn.execute(text(f"DELETE FROM `pierpersonalwebpage`.`user_data` WHERE (`id` = '{id}'); "))
+        
