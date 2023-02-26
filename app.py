@@ -132,6 +132,7 @@ def logout():
     else:
         session.pop("username")
         session.pop("password")
+        session.pop("captcha")
         return render_template("logout.html")
 
 
