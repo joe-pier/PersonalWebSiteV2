@@ -14,7 +14,7 @@ app.config['XCAPTCHA_VERIFY_URL'] = "https://hcaptcha.com/siteverify"
 app.config['XCAPTCHA_API_URL'] = "https://hcaptcha.com/1/api.js"
 app.config['XCAPTCHA_DIV_CLASS'] = "h-captcha"
 
-sk = os.environ["HCAPTCHA_SITE_KEY"]
+sk = os.environ["XCAPTCHA_SITE_KEY"]
 xcaptcha = XCaptcha(app=app)
 
 
@@ -52,7 +52,7 @@ def form():
 
 @app.route("/form/data", methods = ["post"])
 def data():
-    if xcaptcha.verify() == True:
+    if xcaptcha.verify():
         data = request.form
         # store in db
         # display an uknowledgement
