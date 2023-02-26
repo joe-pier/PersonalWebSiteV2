@@ -3,4 +3,4 @@ gunicorn
 sqlalchemy
 pymysql
 Pillow
-Flask-reCaptcha
+flask_hcaptcha
