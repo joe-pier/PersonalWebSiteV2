@@ -8,10 +8,12 @@ import os
 app = Flask(__name__)  # instance of class Flask
 
 app.config['HCAPTCHA_ENABLED'] = True
-app.config['HCAPTCHA_SECRET_KEY'] =  os.environ["HCAPTCHA_SECRET_KEY"]
+app.config['HCAPTCHA_SECRET_KEY'] = os.environ["HCAPTCHA_SECRET_KEY"]
 app.config["HCAPTCHA_SITE_KEY "] =  os.environ["HCAPTCHA_SITE_KEY"]
+
+
+sk = app.config["HCAPTCHA_SITE_KEY "]
 hcaptcha = hCaptcha(app)
-print(hcaptcha)
 
  
 UPLOAD_FOLDER = './uploads'
@@ -47,7 +49,7 @@ def show_job(id):
 
 @app.route("/form")
 def form():
-    return render_template("form.html")
+    return render_template("form.html", sk = sk)
 
 @app.route("/form/data", methods = ["post"])
 def data():
