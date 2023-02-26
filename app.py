@@ -78,7 +78,7 @@ def login():
     return render_template("login.html")
 
 
-@app.route("/login/data", methods=["post", "get"])
+@app.route("/login/data", methods=["post"])
 def login_data():
     cv = xcaptcha.verify()
     if cv:
@@ -93,7 +93,7 @@ def login_data():
         return render_template("toomanyattemptslogin.html")
 
 
-@app.route("/login/data/remove", methods=["post", "get"])
+@app.route("/login/data/remove", methods=["post"])
 def remove_data():
     id_user = dict(request.form)
     user_data = get_record_info(id_user["id"])
@@ -101,7 +101,8 @@ def remove_data():
         return render_template("404_remove.html")
     else:
         remove_data_query(id_user["id"])
-        return render_template("table.html")
+        print(user_data)
+        return render_template("elimination_confirmation.html", user_data = user_data)
 
 
 if __name__ == "__main__":

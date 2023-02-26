@@ -99,5 +99,5 @@ def get_record_info(id):
 
 def remove_data_query(id):
     with engine.connect() as conn:
-        conn.execute(text(f"DELETE FROM `pierpersonalwebpage`.`user_data` WHERE (`id` = '{id}'); "))
+        return conn.execute(text(f"DELETE FROM `pierpersonalwebpage`.`user_data` WHERE (`id` = '{id}'); "))
         
