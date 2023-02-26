@@ -10,7 +10,7 @@
         <style>
             @font-face {
                 font-family: Cocogoose;
-                src: url('static/Cocogoose.ttf');
+                src: url('/static/Cocogoose.ttf');
             }
     
     
@@ -27,7 +27,7 @@
     
     
     <tr>
-        <th scope="col">id</th>
+        <th scope="row">id</th>
 
         <th scope="col">name</th>
         <th scope="col">last name</th>
@@ -38,7 +38,7 @@
     </tr>
     {% for row in data %}
       <tr>
-        <td>{{ row["id"] }}</td>
+        <b><th>{{ row["id"] }}</th></b>
         <td>{{ row["name"] }}</td>
         <td>{{ row["last_name"] }}</td>
         <td>{{ row["email"] }}</td>
