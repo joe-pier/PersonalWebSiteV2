@@ -54,9 +54,7 @@
                             </div>
 
                             <div style="margin-top: 24px;">
-                                {{% if "captcha" in list(session.keys()) %}}
-                                    {{ xcaptcha }}
-                                {{% else %}}
+                                {{% if "captcha" in session %}}
                                     {{ xcaptcha }}
                                 {% endif %}
                             </div>
