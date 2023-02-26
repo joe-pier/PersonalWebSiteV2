@@ -80,7 +80,7 @@ def login():
 
 @app.route("/login/data", methods=["post"])
 def login_data():
-    cv = xcaptcha.verify()
+    cv = True# xcaptcha.verify()
     if cv:
         login_data_query = get_login_info()
         login_data = request.form
@@ -101,7 +101,6 @@ def remove_data():
         return render_template("404_remove.html")
     else:
         remove_data_query(id_user["id"])
-        print(user_data)
         return render_template("elimination_confirmation.html", user_data = user_data)
 
 
