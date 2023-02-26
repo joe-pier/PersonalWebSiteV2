@@ -8,7 +8,7 @@ from flask_xcaptcha import XCaptcha
 app = Flask(__name__)  # instance of class Flask
 
 
-app.config['XCAPTCHA_SITE_KEY'] = os.environ["HCAPTCHA_SITE_KEY"] 
+app.config['XCAPTCHA_SITE_KEY'] = os.environ["XCAPTCHA_SITE_KEY"] 
 app.config['XCAPTCHA_SECRET_KEY'] = os.environ["XCAPTCHA_SECRET_KEY"] 
 app.config['XCAPTCHA_VERIFY_URL'] = "https://hcaptcha.com/siteverify"
 app.config['XCAPTCHA_API_URL'] = "https://hcaptcha.com/1/api.js"
