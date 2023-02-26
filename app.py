@@ -130,9 +130,20 @@ def logout():
         return render_template("logouterror.html")
 
     else:
-        session.pop("username")
-        session.pop("password")
-        session.pop("captcha")
+        try:
+            session.pop("username")
+        except:
+            pass
+        try:
+            session.pop("password")
+        except:
+            pass
+        try:
+            session.pop("captcha")
+        except:
+            pass
+        
+        
         return render_template("logout.html")
 
 
