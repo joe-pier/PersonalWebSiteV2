@@ -1,5 +1,5 @@
 from flask import Flask, render_template, jsonify, request, session
-from database import load_jobs_from_db, load_job_from_db, add_data, get_login_info, get_recorded_info, get_record_info, remove_data_query, load_projects_from_db,load_project_from_db
+from database import load_jobs_from_db, load_job_from_db, add_data, get_login_info, get_recorded_info, get_record_info, remove_data_query, load_projects_from_db,load_project_from_db,load_skills_from_db
 import os
 from flask_xcaptcha import XCaptcha
 
@@ -35,7 +35,8 @@ xcaptcha = XCaptcha(app=app)
 def home():
     jobs = load_jobs_from_db()
     projects = load_projects_from_db()
-    return render_template('home.html', jobs=jobs,projects = projects, name="Pier")
+    skills = load_skills_from_db()
+    return render_template('home.html', jobs=jobs,projects = projects,skills = skills, name="Pier")
 
 
 

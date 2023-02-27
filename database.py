@@ -118,4 +118,12 @@ def load_project_from_db(id):
             return None
         else:
             return dict(project_dict[0])
-        
+
+
+
+def load_skills_from_db():
+    with engine.connect() as conn:
+        result = conn.execute(text("select * from skills"))
+        skills = result.mappings().all()
+        skills_dict = encode_binary_response(skills)
+    return skills_dict
